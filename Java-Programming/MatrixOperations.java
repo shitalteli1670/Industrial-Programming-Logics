@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class MatrixOperations 
 {
-
     public static void main(String[] args) 
     {
         Scanner scanner = new Scanner(System.in);
@@ -10,182 +9,128 @@ public class MatrixOperations
 
         do 
         {
-            // Display menu
-            System.out.println("Matrix Operations Menu:");
-            System.out.println("1. Sum of Diagonal Elements");
-            System.out.println("2. Add Matrices");
-            System.out.println("3. Multiply Matrices");
-            System.out.println("4. Exit");
+            System.out.println("Menu:");
+            System.out.println("1. Addition of Matrices");
+            System.out.println("2. Multiplication of Matrices");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
             switch (choice) 
             {
                 case 1:
-                    // Sum of diagonal elements
-                    sumOfDiagonalElements(scanner);
+                    matrixAddition(scanner);
                     break;
                 case 2:
-                    // Add matrices
-                    addMatrices(scanner);
+                    matrixMultiplication(scanner);
                     break;
                 case 3:
-                    // Multiply matrices
-                    multiplyMatrices(scanner);
-                    break;
-                case 4:
                     System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice! Please enter a valid option.");
             }
-        } while (choice != 4);
+        } while (choice != 3);
 
         scanner.close();
     }
 
-    private static void sumOfDiagonalElements(Scanner scanner) 
+    public static void matrixAddition(Scanner scanner) 
     {
-        System.out.print("Enter the number of rows (and columns for a square matrix): ");
-        int n = scanner.nextInt();
-
-        int[][] matrix = new int[n][n];
-
-        // Input matrix elements
-        System.out.println("Enter elements of the matrix:");
-        for (int i = 0; i < n; i++) 
-        {
-            for (int j = 0; j < n; j++) 
-            {
-                System.out.printf("Element (%d,%d): ", i, j);
-                matrix[i][j] = scanner.nextInt();
-            }
-        }
-
-        // Calculate sum of diagonal elements
-        int sumMainDiagonal = 0;
-        int sumAntiDiagonal = 0;
-
-        for (int i = 0; i < n; i++) 
-        {
-            sumMainDiagonal += matrix[i][i];           // Main diagonal
-            sumAntiDiagonal += matrix[i][n - 1 - i];   // Anti-diagonal
-        }
-
-        // Display results
-        System.out.println("Sum of Main Diagonal Elements: " + sumMainDiagonal);
-        System.out.println("Sum of Anti-Diagonal Elements: " + sumAntiDiagonal);
-    }
-
-    private static void addMatrices(Scanner scanner) 
-    {
-        System.out.print("Enter the number of rows: ");
+        System.out.print("Enter the number of rows and columns of the matrices: ");
         int rows = scanner.nextInt();
-        System.out.print("Enter the number of columns: ");
-        int cols = scanner.nextInt();
+        int columns = scanner.nextInt();
 
-        int[][] matrix1 = new int[rows][cols];
-        int[][] matrix2 = new int[rows][cols];
-        int[][] result = new int[rows][cols];
+        int[][] matrix1 = new int[rows][columns];
+        int[][] matrix2 = new int[rows][columns];
+        int[][] sum = new int[rows][columns];
 
-        // Input first matrix
-        System.out.println("Enter elements of the first matrix:");
-        for (int i = 0; i < rows; i++) 
-        {
-            for (int j = 0; j < cols; j++) 
-            {
-                System.out.printf("Element (%d,%d): ", i, j);
-                matrix1[i][j] = scanner.nextInt();
-            }
-        }
+        System.out.println("Enter the elements of the first matrix:");
+        inputMatrix(scanner, matrix1, rows, columns);
 
-        // Input second matrix
-        System.out.println("Enter elements of the second matrix:");
-        for (int i = 0; i < rows; i++) 
-        {
-            for (int j = 0; j < cols; j++) 
-            {
-                System.out.printf("Element (%d,%d): ", i, j);
-                matrix2[i][j] = scanner.nextInt();
-            }
-        }
+        System.out.println("Enter the elements of the second matrix:");
+        inputMatrix(scanner, matrix2, rows, columns);
 
         // Add matrices
         for (int i = 0; i < rows; i++) 
         {
-            for (int j = 0; j < cols; j++) 
+            for (int j = 0; j < columns; j++) 
             {
-                result[i][j] = matrix1[i][j] + matrix2[i][j];
+                sum[i][j] = matrix1[i][j] + matrix2[i][j];
             }
         }
 
-        // Display result
         System.out.println("Sum of the matrices:");
-        printMatrix(result);
+        displayMatrix(sum, rows, columns);
+        displayDiagonalSum(sum, rows, columns);
     }
 
-    private static void multiplyMatrices(Scanner scanner) 
+    public static void matrixMultiplication(Scanner scanner) 
     {
-        System.out.print("Enter the number of rows for the first matrix: ");
+        System.out.print("Enter the number of rows and columns of the first matrix: ");
         int rows1 = scanner.nextInt();
-        System.out.print("Enter the number of columns for the first matrix (and rows for the second matrix): ");
-        int cols1Rows2 = scanner.nextInt();
-        System.out.print("Enter the number of columns for the second matrix: ");
-        int cols2 = scanner.nextInt();
+        int columns1 = scanner.nextInt();
+        System.out.print("Enter the number of columns of the second matrix: ");
+        int columns2 = scanner.nextInt();
 
-        int[][] matrix1 = new int[rows1][cols1Rows2];
-        int[][] matrix2 = new int[cols1Rows2][cols2];
-        int[][] result = new int[rows1][cols2];
+        int[][] matrix1 = new int[rows1][columns1];
+        int[][] matrix2 = new int[columns1][columns2];
+        int[][] product = new int[rows1][columns2];
 
-        // Input first matrix
-        System.out.println("Enter elements of the first matrix:");
-        for (int i = 0; i < rows1; i++) 
-        {
-            for (int j = 0; j < cols1Rows2; j++) 
-            {
-                System.out.printf("Element (%d,%d): ", i, j);
-                matrix1[i][j] = scanner.nextInt();
-            }
-        }
+        System.out.println("Enter the elements of the first matrix:");
+        inputMatrix(scanner, matrix1, rows1, columns1);
 
-        // Input second matrix
-        System.out.println("Enter elements of the second matrix:");
-        for (int i = 0; i < cols1Rows2; i++) 
-        {
-            for (int j = 0; j < cols2; j++) 
-            {
-                System.out.printf("Element (%d,%d): ", i, j);
-                matrix2[i][j] = scanner.nextInt();
-            }
-        }
+        System.out.println("Enter the elements of the second matrix:");
+        inputMatrix(scanner, matrix2, columns1, columns2);
 
         // Multiply matrices
         for (int i = 0; i < rows1; i++) 
         {
-            for (int j = 0; j < cols2; j++) 
+            for (int j = 0; j < columns2; j++) 
             {
-                result[i][j] = 0;
-                for (int k = 0; k < cols1Rows2; k++) 
+                product[i][j] = 0;
+                for (int k = 0; k < columns1; k++) 
                 {
-                    result[i][j] += matrix1[i][k] * matrix2[k][j];
+                    product[i][j] += matrix1[i][k] * matrix2[k][j];
                 }
             }
         }
 
-        // Display result
         System.out.println("Product of the matrices:");
-        printMatrix(result);
+        displayMatrix(product, rows1, columns2);
+        displayDiagonalSum(product, rows1, columns2);
     }
 
-    private static void printMatrix(int[][] matrix) 
+    public static void inputMatrix(Scanner scanner, int[][] matrix, int rows, int columns) 
     {
-        for (int[] row : matrix) 
+        for (int i = 0; i < rows; i++) 
         {
-            for (int elem : row) 
+            for (int j = 0; j < columns; j++) 
             {
-                System.out.print(elem + "\t");
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    public static void displayMatrix(int[][] matrix, int rows, int columns) 
+    {
+        for (int i = 0; i < rows; i++) 
+        {
+            for (int j = 0; j < columns; j++) 
+            {
+                System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
         }
+    }
+
+    public static void displayDiagonalSum(int[][] matrix, int rows, int columns) 
+    {
+        int diagonalSum = 0;
+        for (int i = 0; i < Math.min(rows, columns); i++) 
+        {
+            diagonalSum += matrix[i][i];
+        }
+        System.out.println("Sum of diagonal elements: " + diagonalSum);
     }
 }
