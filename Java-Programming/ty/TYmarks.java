@@ -1,11 +1,11 @@
 package ty;
 public class TYmarks
 {
-    public int Theory;
+    public int theory;
     public int practicals;
     public TYmarks()
     {
-        Theory=0;
+        theory=0;
         practicals=0;
     }
     public TYmarks(int t, int p)
