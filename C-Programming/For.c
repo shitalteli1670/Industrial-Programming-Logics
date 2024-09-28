@@ -14,14 +14,6 @@ int main()
 }
 
 
-
-
-
-
-
-
-
-
 // 1 : Counter initialisation
 // 2 : Loop Condition
 // 3 : Loop displacement
