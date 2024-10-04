@@ -1,23 +1,11 @@
-# int No = 11;
-No = 11
+##indexing
 
-#printf("Value of No is %d\n",No);
-print("Value of No is ",No)
-
-print(type(No))
-
-X = "Marvellous"
-print(X)
-print(type(X))
-
-Marks = 90.67
-print(Marks)
-print(type(Marks))
-
-Y = 6j
-print(Y)
-print(type(Y))
-
-A = True
-print(A)
-print(type(A))
+strstr1="Disha Computer Instiute Dehugaon"
+print(str1[0])
+print(str1[6])
+print(str1[9])
+print(str1[2])
+print(str1[8])
+print(str1[4])
+print(str1[10])
+print(str1[20])
